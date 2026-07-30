@@ -1,10 +1,10 @@
-const obj = {
+/* const obj = {
   name: 'Rasel',
   address: {
     city: 'Munshiganj',
     zip: 123,
   },
-};
+}; */
 
 //!shallow copy
 
@@ -21,7 +21,7 @@ trueCopy.address.city = 'Dhaka';
 console.log(obj, trueCopy); */
 
 /* It CANNOT clone functions or DOM nodes: If your object contains a function or an HTML element, it will instantly throw a DataCloneError. It strictly copies data, not behavior. */
-const user = {
+/* const user = {
   name: 'Rasel',
 
   greet() {
@@ -29,4 +29,5 @@ const user = {
   },
 };
 
-const copy = structuredClone(user);
+const copy = structuredClone(user); */
+
