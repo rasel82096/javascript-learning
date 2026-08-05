@@ -219,3 +219,4 @@ function cleanProductData(productData) {
 
   return Object.fromEntries();
 }
+const a = 4;
