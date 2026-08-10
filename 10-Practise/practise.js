@@ -250,7 +250,7 @@ object return
 optionally spread operator
 Submit your solution when ready. */
 
-const subscriptions = [
+/* const subscriptions = [
   { plan: 'Basic', price: 10, users: 3 },
   { plan: 'Pro', price: 25, users: 5 },
   { plan: 'Enterprise', price: 100, users: 2 },
@@ -258,11 +258,11 @@ const subscriptions = [
 ];
 
 function getSubscriptionSummary(subscriptions) {
-  const summerry = subscriptions.reduce(
+  const summarry = subscriptions.reduce(
     (acc, curr) => {
       acc.totalUsers += curr.users;
 
-      acc.totalRevenue += curr.price + curr.users;
+      acc.totalRevenue += curr.price * curr.users;
 
       return acc;
     },
@@ -273,9 +273,206 @@ function getSubscriptionSummary(subscriptions) {
   );
 
   return {
-    ...summerry,
+    ...summarry,
     planNames: subscriptions.map(elem => elem.plan).join('|'),
   };
 }
 
-console.log(getSubscriptionSummary(subscriptions));
+console.log(getSubscriptionSummary(subscriptions)); */
+
+//!Q7.
+/* Next Question — Medium
+You’re building a RAG application. Search results arrive from multiple knowledge sources:
+const searchResults = [
+  {
+    source: "Notion",
+    documents: [
+      { title: "React Guide", score: 0.92 },
+      { title: "CSS Notes", score: 0.65 }
+    ]
+  },
+  {
+    source: "GitHub",
+    documents: [
+      { title: "RAG Implementation", score: 0.95 },
+      { title: "React Components", score: 0.81 }
+    ]
+  },
+  {
+    source: "Google Drive",
+    documents: [
+      { title: "FastAPI Handbook", score: 0.88 }
+    ]
+  }
+];
+​
+Write a function:
+getTopDocuments(searchResults, minimumScore, limit)
+​
+It should:
+Combine all nested documents into one array.
+Add the corresponding source to every document.
+Keep only documents whose score is greater than or equal to minimumScore.
+Sort them from highest to lowest score.
+Return only the first limit documents.
+Example:
+getTopDocuments(searchResults, 0.8, 3);
+​
+Expected result:
+[
+  { title: "RAG Implementation", score: 0.95, source: "GitHub" },
+  { title: "React Guide", score: 0.92, source: "Notion" },
+  { title: "FastAPI Handbook", score: 0.88, source: "Google Drive" }
+]
+​
+Use destructuring, the spread operator, flatMap(), filter(), sort(), and slice(). */
+
+//!soln
+/* const searchResults = [
+  {
+    source: 'Notion',
+    documents: [
+      { title: 'React Guide', score: 0.92 },
+      { title: 'CSS Notes', score: 0.65 },
+    ],
+  },
+  {
+    source: 'GitHub',
+    documents: [
+      { title: 'RAG Implementation', score: 0.95 },
+      { title: 'React Components', score: 0.81 },
+    ],
+  },
+  {
+    source: 'Google Drive',
+    documents: [{ title: 'FastAPI Handbook', score: 0.88 }],
+  },
+];
+
+function getTopDocuments(searchResults, minimumScore, limit) {
+  return searchResults
+    .flatMap(({ source, documents }) =>
+      documents.map(document => ({
+        ...document,
+        source,
+      })),
+    )
+    .filter(({ score }) => score >= minimumScore)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
+console.log(getTopDocuments(searchResults, 0.8, 3)); */
+
+
+//!Q8**.
+
+/* You’re building a product search system. Products are coming from multiple stores:
+
+const storeResults = [
+  {
+    store: "Amazon",
+    products: [
+      { name: "Wireless Mouse", rating: 4.5, price: 25 },
+      { name: "Keyboard", rating: 3.8, price: 40 }
+    ]
+  },
+  {
+    store: "BestBuy",
+    products: [
+      { name: "Gaming Headset", rating: 4.8, price: 60 },
+      { name: "Webcam", rating: 4.2, price: 50 }
+    ]
+  },
+  {
+    store: "Walmart",
+    products: [
+      { name: "USB Hub", rating: 4.6, price: 20 }
+    ]
+  }
+];
+
+Write a function:
+
+getTopProducts(storeResults, minimumRating, limit)
+Requirements:
+Combine all nested products into one array.
+Add the corresponding store to every product.
+Keep only products whose rating is greater than or equal to minimumRating.
+Sort products from highest rating to lowest rating.
+Return only the first limit products.
+Example:
+getTopProducts(storeResults, 4.5, 3);
+Expected result:
+[
+  { name: "Gaming Headset", rating: 4.8, price: 60, store: "BestBuy" },
+  { name: "USB Hub", rating: 4.6, price: 20, store: "Walmart" },
+  { name: "Wireless Mouse", rating: 4.5, price: 25, store: "Amazon" }
+]
+Your constraints
+
+Try to use:
+
+destructuring
+spread operator
+flatMap()
+filter()
+sort()
+slice() */
+
+
+
+//!Q9*
+
+/* Practice Question 2 — Medium+
+
+You're building a course recommendation system. Courses come from different platforms:
+
+const platformResults = [
+  {
+    platform: "Udemy",
+    courses: [
+      { title: "JavaScript Basics", students: 1200, score: 8.7 },
+      { title: "React Mastery", students: 900, score: 9.2 }
+    ]
+  },
+  {
+    platform: "Coursera",
+    courses: [
+      { title: "Python for Beginners", students: 2000, score: 9.0 },
+      { title: "Data Structures", students: 1500, score: 8.5 }
+    ]
+  },
+  {
+    platform: "edX",
+    courses: [
+      { title: "Machine Learning", students: 1800, score: 9.4 }
+    ]
+  }
+];
+
+Write:
+
+getTopCourses(platformResults, minimumScore, limit)
+Requirements:
+Combine all courses into one array.
+Add the corresponding platform to every course.
+Keep courses whose score is greater than or equal to minimumScore.
+Sort them by score from highest to lowest.
+If two courses have the same score, sort those courses by number of students from highest to lowest.
+Return only the first limit courses.
+Example:
+getTopCourses(platformResults, 8.7, 4);
+Expected result:
+[
+  { title: "Machine Learning", students: 1800, score: 9.4, platform: "edX" },
+  { title: "React Mastery", students: 900, score: 9.2, platform: "Udemy" },
+  { title: "Python for Beginners", students: 2000, score: 9.0, platform: "Coursera" },
+  { title: "JavaScript Basics", students: 1200, score: 8.7, platform: "Udemy" }
+]
+
+For this one, try to figure out how to modify your sort():
+
+.sort((a, b) => {
+   your logic here
+}) */
