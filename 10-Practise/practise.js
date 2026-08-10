@@ -195,7 +195,7 @@ Expected result:
 ​
 Use split(), trim(), startsWith(), filter(), map(), destructuring, and Object.fromEntries().
  */
-const configText = `
+/* const configText = `
   API_URL = https://api.example.com
   MODEL_NAME = gpt-4
   EMPTY_VALUE =
@@ -217,4 +217,65 @@ function parseConfig(configText) {
   return Object.fromEntries(result);
 }
 
-console.log(parseConfig(configText));
+console.log(parseConfig(configText)); */
+
+//!q5.
+
+/* Question 4 — Medium
+You are building an AI subscription billing dashboard.
+You receive this data from an API:
+const subscriptions = [
+  { plan: "Basic", price: 10, users: 3 },
+  { plan: "Pro", price: 25, users: 5 },
+  { plan: "Enterprise", price: 100, users: 2 },
+  { plan: "Student", price: 5, users: 10 }
+];
+​
+Write a function called getSubscriptionSummary(subscriptions) that returns an object like this:
+{
+  totalUsers: 20,
+  totalRevenue: 375,
+  planNames: "Basic | Pro | Enterprise | Student"
+}
+​
+Requirements:
+totalUsers should be the sum of all users
+totalRevenue should be the sum of price * users
+planNames should contain all plan names joined with " | "
+Try to use:
+reduce()
+map()
+join()
+object return
+optionally spread operator
+Submit your solution when ready. */
+
+const subscriptions = [
+  { plan: 'Basic', price: 10, users: 3 },
+  { plan: 'Pro', price: 25, users: 5 },
+  { plan: 'Enterprise', price: 100, users: 2 },
+  { plan: 'Student', price: 5, users: 10 },
+];
+
+function getSubscriptionSummary(subscriptions) {
+  const summerry = subscriptions.reduce(
+    (acc, curr) => {
+      acc.totalUsers += curr.users;
+
+      acc.totalRevenue += curr.price + curr.users;
+
+      return acc;
+    },
+    {
+      totalUsers: 0,
+      totalRevenue: 0,
+    },
+  );
+
+  return {
+    ...summerry,
+    planNames: subscriptions.map(elem => elem.plan).join('|'),
+  };
+}
+
+console.log(getSubscriptionSummary(subscriptions));
