@@ -219,156 +219,426 @@ function parseConfig(configText) {
 
 console.log(parseConfig(configText)); */
 
-//!Q5.
+//!q5.
 
-/* Question 1 — Easy/Medium
-You are building a small AI course search feature for a learning platform.
-You receive this array of course titles from an API:
-const courses = [
-  "  React Basics for Beginners  ",
-  "Next.js Full Stack Project",
-  "JavaScript Array Methods",
-  "FastAPI Backend Development",
-  "LangChain RAG Chatbot",
-  "React AI Dashboard"
+/* Question 4 — Medium
+You are building an AI subscription billing dashboard.
+You receive this data from an API:
+const subscriptions = [
+  { plan: "Basic", price: 10, users: 3 },
+  { plan: "Pro", price: 25, users: 5 },
+  { plan: "Enterprise", price: 100, users: 2 },
+  { plan: "Student", price: 5, users: 10 }
 ];
 ​
-Write a function called searchCourses(courses, keyword) that:
-Removes extra spaces from each course title
-Checks if the course title includes the keyword
-Search should be case-insensitive
-Returns an array of matching course titles
-Example:
-searchCourses(courses, "react");
-​
-Expected output:
-[
-  "React Basics for Beginners",
-  "React AI Dashboard"
-]
-​
-Use any methods you know, but try to use at least:
-trim()
-includes()
-filter()
-a function  
-optionally map() if needed
-Submit your answer, and I’ll review it honestly. */
-
-//?soln
-/* function searchCourses(courses, keyword) {
-  const cleanKeyword = keyword.trim().toLowerCase();
-
-  return courses
-    .map(course => course.trim())
-    .filter(course => course.toLowerCase().includes(cleanKeyword));
-}
-
-console.log(searchCourses(courses, 'react')); */
-
-//!Q6.
-
-/* You are building a student dashboard for a JavaScript learning app.
-You receive this array from an API:
-const students = [
-  { name: "Rasel", score: 82, course: "JavaScript" },
-  { name: "Mina", score: 45, course: "React" },
-  { name: "Tanvir", score: 67, course: "JavaScript" },
-  { name: "Nadia", score: 90, course: "Next.js" },
-  { name: "Hasan", score: 38, course: "JavaScript" }
-];
-​
-Write a function called getPassedJSStudents(students) that:
-Finds only students whose course is "JavaScript"
-Keeps only students with score >= 60
-Returns an array of their names only
-Expected output:
-["Rasel", "Tanvir"]
-​
-Try to use:
-filter()
-map()
-object property access
-a function
-Submit your solution when ready. */
-
-//?soln
-
-/* const students = [
-  { name: 'Rasel', score: 82, course: 'JavaScript' },
-  { name: 'Mina', score: 45, course: 'React' },
-  { name: 'Tanvir', score: 67, course: 'JavaScript' },
-  { name: 'Nadia', score: 90, course: 'Next.js' },
-  { name: 'Hasan', score: 38, course: 'JavaScript' },
-];
-
-function getPassedJSStudents(students) {
-  return students
-    .filter(
-      stu =>
-        stu.score >= 60 && stu.course.trim().toLowerCase() === 'javascript',
-    )
-    .map(({ name }) => {
-      return name;
-    });
-}
-
-console.log(getPassedJSStudents(students)); */
-
-//!Q7.
-
-/* You are building a shopping cart summary for an e-commerce web app.
-You receive this cart data from an API:
-const cart = [
-  { name: "Laptop", price: 800, quantity: 1 },
-  { name: "Mouse", price: 20, quantity: 2 },
-  { name: "Keyboard", price: 50, quantity: 1 },
-  { name: "USB Cable", price: 10, quantity: 3 }
-];
-​
-Write a function called getCartSummary(cart) that returns an object like this:
+Write a function called getSubscriptionSummary(subscriptions) that returns an object like this:
 {
-  totalItems: 7,
-  totalPrice: 920,
-  itemNames: "Laptop, Mouse, Keyboard, USB Cable"
+  totalUsers: 20,
+  totalRevenue: 375,
+  planNames: "Basic | Pro | Enterprise | Student"
 }
 ​
 Requirements:
-totalItems should be the sum of all quantities
-totalPrice should be the sum of price * quantity
-itemNames should be all product names joined by comma
+totalUsers should be the sum of all users
+totalRevenue should be the sum of price * users
+planNames should contain all plan names joined with " | "
 Try to use:
 reduce()
 map()
 join()
 object return
-a function
-Submit your solution when ready.
- */
-/* const cart = [
-  { name: 'Laptop', price: 800, quantity: 1 },
-  { name: 'Mouse', price: 20, quantity: 2 },
-  { name: 'Keyboard', price: 50, quantity: 1 },
-  { name: 'USB Cable', price: 10, quantity: 3 },
+optionally spread operator
+Submit your solution when ready. */
+
+/* const subscriptions = [
+  { plan: 'Basic', price: 10, users: 3 },
+  { plan: 'Pro', price: 25, users: 5 },
+  { plan: 'Enterprise', price: 100, users: 2 },
+  { plan: 'Student', price: 5, users: 10 },
 ];
 
-function getCartSummary(cart) {
-  const summary = cart.reduce(
+function getSubscriptionSummary(subscriptions) {
+  const summarry = subscriptions.reduce(
     (acc, curr) => {
-      acc.totalItems += curr.quantity;
-      acc.totalPrice += curr.price * curr.quantity;
+      acc.totalUsers += curr.users;
+
+      acc.totalRevenue += curr.price * curr.users;
+
       return acc;
     },
     {
-      totalItems: 0,
-      totalPrice: 0,
+      totalUsers: 0,
+      totalRevenue: 0,
     },
   );
 
   return {
-    ...summary,
-    itemNames: cart.map(item => item.name).join(', '),
+    ...summarry,
+    planNames: subscriptions.map(elem => elem.plan).join('|'),
   };
 }
 
-console.log(getCartSummary(cart)); */
+console.log(getSubscriptionSummary(subscriptions)); */
+
+//!Q7.
+/* Next Question — Medium
+You’re building a RAG application. Search results arrive from multiple knowledge sources:
+const searchResults = [
+  {
+    source: "Notion",
+    documents: [
+      { title: "React Guide", score: 0.92 },
+      { title: "CSS Notes", score: 0.65 }
+    ]
+  },
+  {
+    source: "GitHub",
+    documents: [
+      { title: "RAG Implementation", score: 0.95 },
+      { title: "React Components", score: 0.81 }
+    ]
+  },
+  {
+    source: "Google Drive",
+    documents: [
+      { title: "FastAPI Handbook", score: 0.88 }
+    ]
+  }
+];
+​
+Write a function:
+getTopDocuments(searchResults, minimumScore, limit)
+​
+It should:
+Combine all nested documents into one array.
+Add the corresponding source to every document.
+Keep only documents whose score is greater than or equal to minimumScore.
+Sort them from highest to lowest score.
+Return only the first limit documents.
+Example:
+getTopDocuments(searchResults, 0.8, 3);
+​
+Expected result:
+[
+  { title: "RAG Implementation", score: 0.95, source: "GitHub" },
+  { title: "React Guide", score: 0.92, source: "Notion" },
+  { title: "FastAPI Handbook", score: 0.88, source: "Google Drive" }
+]
+​
+Use destructuring, the spread operator, flatMap(), filter(), sort(), and slice(). */
+
+//!soln
+/* const searchResults = [
+  {
+    source: 'Notion',
+    documents: [
+      { title: 'React Guide', score: 0.92 },
+      { title: 'CSS Notes', score: 0.65 },
+    ],
+  },
+  {
+    source: 'GitHub',
+    documents: [
+      { title: 'RAG Implementation', score: 0.95 },
+      { title: 'React Components', score: 0.81 },
+    ],
+  },
+  {
+    source: 'Google Drive',
+    documents: [{ title: 'FastAPI Handbook', score: 0.88 }],
+  },
+];
+
+function getTopDocuments(searchResults, minimumScore, limit) {
+  return searchResults
+    .flatMap(({ source, documents }) =>
+      documents.map(document => ({
+        ...document,
+        source,
+      })),
+    )
+    .filter(({ score }) => score >= minimumScore)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
+console.log(getTopDocuments(searchResults, 0.8, 3)); */
+
+//!Q8**.
+
+/* You’re building a product search system. Products are coming from multiple stores:
+
+const storeResults = [
+  {
+    store: "Amazon",
+    products: [
+      { name: "Wireless Mouse", rating: 4.5, price: 25 },
+      { name: "Keyboard", rating: 3.8, price: 40 }
+    ]
+  },
+  {
+    store: "BestBuy",
+    products: [
+      { name: "Gaming Headset", rating: 4.8, price: 60 },
+      { name: "Webcam", rating: 4.2, price: 50 }
+    ]
+  },
+  {
+    store: "Walmart",
+    products: [
+      { name: "USB Hub", rating: 4.6, price: 20 }
+    ]
+  }
+];
+
+Write a function:
+
+getTopProducts(storeResults, minimumRating, limit)
+Requirements:
+Combine all nested products into one array.
+Add the corresponding store to every product.
+Keep only products whose rating is greater than or equal to minimumRating.
+Sort products from highest rating to lowest rating.
+Return only the first limit products.
+Example:
+getTopProducts(storeResults, 4.5, 3);
+Expected result:
+[
+  { name: "Gaming Headset", rating: 4.8, price: 60, store: "BestBuy" },
+  { name: "USB Hub", rating: 4.6, price: 20, store: "Walmart" },
+  { name: "Wireless Mouse", rating: 4.5, price: 25, store: "Amazon" }
+]
+Your constraints
+
+Try to use:
+
+destructuring
+spread operator
+flatMap()
+filter()
+sort()
+slice() */
+
+//?soln:
+
+/* const storeResults = [
+  {
+    store: 'Amazon',
+    products: [
+      { name: 'Wireless Mouse', rating: 4.5, price: 25 },
+      { name: 'Keyboard', rating: 3.8, price: 40 },
+    ],
+  },
+  {
+    store: 'BestBuy',
+    products: [
+      { name: 'Gaming Headset', rating: 4.8, price: 60 },
+      { name: 'Webcam', rating: 4.2, price: 50 },
+    ],
+  },
+  {
+    store: 'Walmart',
+    products: [{ name: 'USB Hub', rating: 4.6, price: 20 }],
+  },
+];
+
+function getTopProducts(storeResults, minimumRating, limit) {
+  return storeResults
+    .flatMap(({ store, products }) => {
+      return products
+        .map(elem => {
+          return {
+            ...elem,
+            store,
+          };
+        })
+        .filter(({ rating }) => rating >= minimumRating)
+        .sort((a, b) => b.price - a.price);
+    })
+    .slice(0, limit);
+}
+
+console.log(getTopProducts(storeResults, 3.8, 3)); */
+
+//!Q9*
+
+/* Practice Question 2 — Medium+
+
+You're building a course recommendation system. Courses come from different platforms:
+
+const platformResults = [
+  {
+    platform: "Udemy",
+    courses: [
+      { title: "JavaScript Basics", students: 1200, score: 8.7 },
+      { title: "React Mastery", students: 900, score: 9.2 }
+    ]
+  },
+  {
+    platform: "Coursera",
+    courses: [
+      { title: "Python for Beginners", students: 2000, score: 9.0 },
+      { title: "Data Structures", students: 1500, score: 8.5 }
+    ]
+  },
+  {
+    platform: "edX",
+    courses: [
+      { title: "Machine Learning", students: 1800, score: 9.4 }
+    ]
+  }
+];
+
+Write:
+
+getTopCourses(platformResults, minimumScore, limit)
+Requirements:
+Combine all courses into one array.
+Add the corresponding platform to every course.
+Keep courses whose score is greater than or equal to minimumScore.
+Sort them by score from highest to lowest.
+If two courses have the same score, sort those courses by number of students from highest to lowest.
+Return only the first limit courses.
+Example:
+getTopCourses(platformResults, 8.7, 4);
+Expected result:
+[
+  { title: "Machine Learning", students: 1800, score: 9.4, platform: "edX" },
+  { title: "React Mastery", students: 900, score: 9.2, platform: "Udemy" },
+  { title: "Python for Beginners", students: 2000, score: 9.0, platform: "Coursera" },
+  { title: "JavaScript Basics", students: 1200, score: 8.7, platform: "Udemy" }
+]
+
+For this one, try to figure out how to modify your sort():
+
+.sort((a, b) => {
+   your logic here
+}) */
+
+//!Q10
+/* 
+const employees = [
+  { id: 1, name: 'Amit', salary: 50000, active: true },
+  {
+    id: 2,
+    name: 'Rahul',
+    salary: 80000,
+    active: false,
+  },
+  { id: 3, name: 'Neha', salary: 90000, active: true },
+];
+return name of active employees whose salary is greater thab 45000 */
+
+/* const employees = [
+  { id: 1, name: 'Amit', salary: 50000, active: true },
+  {
+    id: 2,
+    name: 'Rahul',
+    salary: 80000,
+    active: false,
+  },
+  { id: 3, name: 'Neha', salary: 90000, active: true },
+];
+
+function getemployees(employees) {
+  return employees.flatMap(({ name, salary, active }) => {
+    return salary > 45000 && active ? name : [];
+  });
+}
+
+console.log(getemployees(employees)); */
+
+//!Q11.
+
+/* You’re building a request-log dashboard for an AI API. Before showing logs, you need to format IDs, clean routes, and hide sensitive tokens.
+const requestLogs = [
+  { id: 7, route: " /api/ai chat ", token: "sk-live-ABCD" },
+  { id: 42, route: " /api/vector search ", token: "token-9876" },
+  { id: 105, route: " /api/user profile ", token: "secret-WXYZ" }
+];
+​
+Write a function:
+formatRequestLogs(requestLogs)
+​
+It should return a new array where:
+id becomes a four-digit request ID prefixed with "REQ-".
+Whitespace around route is removed.
+Every space inside route is replaced with "-".
+Each token is masked with "*", showing only its final four characters.
+The original array must not be changed.
+Expected result:
+[
+  {
+    id: "REQ-0007",
+    route: "/api/ai-chat",
+    token: "********ABCD"
+  },
+  {
+    id: "REQ-0042",
+    route: "/api/vector-search",
+    token: "******9876"
+  },
+  {
+    id: "REQ-0105",
+    route: "/api/user-profile",
+    token: "*******WXYZ"
+  }
+]
+​
+Use destructuring, map(), trim(), replaceAll(), slice(), and padStart().
+ */
+/* const requestLogs = [
+  { id: 7, route: ' /api/ai chat ', token: 'sk-live-ABCD' },
+  { id: 42, route: ' /api/vector search ', token: 'token-9876' },
+  { id: 105, route: ' /api/user profile ', token: 'secret-WXYZ' },
+];
+
+function formatRequestLogs(requestLogs) {
+  return requestLogs.map(({ id, route, token }) => {
+    return {
+      id: id.toString().padStart(8, 'REQ-000'),
+      route: route.trim().replace(' ', '-'),
+      token: token.slice(token.length - 4).padStart(token.length, '*'),
+    };
+  });
+}
+
+console.log(formatRequestLogs(requestLogs)); */
+
+//!Q12.
+
+/* Next Question — Medium
+You’re validating signup data before sending it from a React form to a FastAPI backend.
+const signupData = {
+  username: "  rasel_dev  ",
+  email: "  rasel@example.com ",
+  password: "secret123",
+  confirmPassword: "secret123"
+};
+​
+Write a function:
+validateSignup(signupData)
+​
+It should:
+Remove surrounding whitespace from username and email.
+Check whether any field is empty after trimming.
+Check whether password and confirmPassword match.
+Exclude confirmPassword from the returned user data.
+Return a new object without changing the original object.
+Expected result:
+{
+  isValid: true,
+  errors: [],
+  user: {
+    username: "rasel_dev",
+    email: "rasel@example.com",
+    password: "secret123"
+  }
+}
+​
+Possible errors:
+"All fields are required"
+"Passwords do not match"
+​
+For example, both errors should be returned when a field is empty and the passwords don’t match.
+Use object destructuring, the spread operator, Object.values(), some(), and trim(). */
