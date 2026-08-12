@@ -644,7 +644,7 @@ Possible errors:
 For example, both errors should be returned when a field is empty and the passwords don’t match.
 Use object destructuring, the spread operator, Object.values(), some(), and trim(). */
 
-console.log(getCartSummary(cart)); */
+/* console.log(getCartSummary(cart));  */
 
 //!Q8.
 
