@@ -278,6 +278,7 @@ function getSubscriptionSummary(subscriptions) {
   };
 }
 
+
 console.log(getSubscriptionSummary(subscriptions)); */
 
 //!Q7.
@@ -642,3 +643,60 @@ Possible errors:
 ​
 For example, both errors should be returned when a field is empty and the passwords don’t match.
 Use object destructuring, the spread operator, Object.values(), some(), and trim(). */
+
+console.log(getCartSummary(cart)); */
+
+//!Q8.
+
+/* Question 5 — Medium
+You are building a signup form validation feature for a web app.
+You receive a user object:
+const user = {
+  name: "  Rasel Ahmed  ",
+  email: " rasel@example.com ",
+  password: "js12345",
+  role: "student"
+};
+​
+Write a function called validateUser(user) that returns an object like this:
+{
+  name: "Rasel Ahmed",
+  email: "rasel@example.com",
+  isEmailValid: true,
+  isPasswordStrong: false,
+  welcomeMessage: "Welcome Rasel Ahmed, your role is student"
+}
+​
+Requirements:
+Trim extra spaces from name and email
+isEmailValid should be true if email includes "@" and ends with ".com"
+isPasswordStrong should be true if password length is at least 8
+welcomeMessage should use the cleaned name and role
+Try to use:
+trim()
+includes()
+endsWith()
+object destructuring
+returning an object
+a function
+Submit your solution when ready. */
+/* const user = {
+  name: '  Rasel Ahmed  ',
+  email: ' rasel@example.com ',
+  password: 'js1234565757',
+  role: 'student',
+};
+function validateUser(user) {
+  const { name, email, password, role } = user;
+  return {
+    name: name.trim(),
+    email: email.trim(),
+    isEmailValid:
+      email.includes('@') && email.trim().endsWith('.com') ? true : false,
+    isPasswordStrong: password.length >= 8 ? true : false,
+    welcomeMessage: `Welcome ${name.trim()}, your role is ${role}`,
+  };
+}
+
+console.log(validateUser(user)); */
+
