@@ -700,3 +700,177 @@ function validateUser(user) {
 
 console.log(validateUser(user)); */
 
+//!
+
+/* You’re building a usage dashboard for an AI chatbot. Each object property represents a user, and its value contains the number of tokens they used.
+const usage = {
+  user_101: { promptTokens: 120, responseTokens: 80 },
+  admin_202: { promptTokens: 300, responseTokens: 150 },
+  user_303: { promptTokens: 200, responseTokens: 100 },
+  user_404: { promptTokens: 50, responseTokens: 25 }
+};
+​
+Write a function calculateUserTokens(usage) that:
+Ignores keys that don’t start with "user_".
+Calculates each user’s total tokens: promptTokens + responseTokens.
+Returns an object where each key is the user ID and each value is the total.
+Also includes a grandTotal property.
+Expected result:
+{
+  user_101: 200,
+  user_303: 300,
+  user_404: 75,
+  grandTotal: 575
+}
+​
+Use Object.entries(), startsWith(), destructuring, and reduce().
+ */
+/* const usage = {
+  user_101: { promptTokens: 120, responseTokens: 80 },
+  admin_202: { promptTokens: 300, responseTokens: 150 },
+  user_303: { promptTokens: 200, responseTokens: 100 },
+  user_404: { promptTokens: 50, responseTokens: 25 },
+};
+
+function calculateUserTokens(usage) {
+  return Object.entries(usage).reduce(
+    (acc, [key, val]) => {
+      if (key.startsWith('user_')) {
+        acc[key] = val.promptTokens + val.responseTokens;
+        acc.grandTotal +=val.promptTokens + val.responseTokens;
+      }
+      return acc;
+    },
+    { grandTotal:0},
+  );
+}
+console.log(calculateUserTokens(usage)); */
+
+//!Q
+
+/* You’re building authorization for a Next.js dashboard.
+const users = [
+  { id: 1, name: "Rasel", role: "admin", permissions: ["read", "write", "delete"] },
+  { id: 2, name: "Nadia", role: "editor", permissions: ["read", "write"] },
+  { id: 3, name: "Karim", role: "viewer", permissions: ["read"] }
+];
+​
+Write a function:
+checkAccess(users, userId, requiredPermissions)
+​
+It should:
+Find the user with the matching userId.
+Check whether the user has every required permission.
+Return this object if access is allowed:
+{
+  id: 2,
+  name: "Nadia",
+  access: true
+}
+​
+If the user exists but lacks any required permission, return the same structure with access: false.
+If the user doesn’t exist, return:
+{
+  error: "User not found"
+}
+​
+Example:
+checkAccess(users, 2, ["read", "write"]);
+/ { id: 2, name: "Nadia", access: true }
+
+checkAccess(users, 3, ["read", "write"]);
+ { id: 3, name: "Karim", access: false }
+​
+Use destructuring, find(), includes(), and an array-checking method. */
+/* const users = [
+  {
+    id: 1,
+    name: 'Rasel',
+    role: 'admin',
+    permissions: ['read', 'write', 'delete'],
+  },
+  { id: 2, name: 'Nadia', role: 'editor', permissions: ['read', 'write'] },
+  { id: 3, name: 'Karim', role: 'viewer', permissions: ['read'] },
+];
+
+function checkAccess(users, userId, requiredPermissions) {
+  const user = users.find(elem => elem.id === userId);
+  if (!user) {
+    return {
+      error: 'User not found',
+    };
+  }
+
+  const { id, name, permissions } = user;
+
+  const access = requiredPermissions.every(per => {
+    return permissions.includes(per);
+  });
+  return {
+    id,
+    name,
+    access,
+  };
+}
+
+console.log(checkAccess(users, 2, ['read', 'write'])); */
+
+//!Q
+
+/* Question 6 — Medium
+You are building a chat message cleaner for an AI chatbot app.
+You receive messy messages from users:
+const messages = [
+  "  hello ai bot  ",
+  "I need help with javascript",
+  "next.js is awesome",
+  "  explain rag system  ",
+  "FASTAPI backend issue"
+];
+​
+Write a function called formatMessages(messages) that returns this:
+[
+  "001: Hello ai bot",
+  "002: I need help with javascript",
+  "003: Next.js is awesome",
+  "004: Explain rag system",
+  "005: FASTAPI backend issue"
+]
+​
+Requirements:
+Remove extra spaces from each message
+Capitalize only the first character of each cleaned message
+Add a message number before each message
+Message numbers should be padded like "001", "002", "003"
+Return the formatted array
+Try to use:
+trim()
+charAt()
+slice()
+map()
+padStart()
+a function
+Submit your solution when ready.
+ */
+function formatMessages(messages) {
+  return messages.map((message, index) => {
+    const cleaned = message.trim();
+
+    const formatted = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+
+    const number = String(index + 1).padStart(3, '0');
+
+    return `${number}: ${formatted}`;
+  });
+}
+
+const messages = [
+  '  hello ai bot  ',
+  'I need help with javascript',
+  'next.js is awesome',
+  '  explain rag system  ',
+  'FASTAPI backend issue',
+];
+
+console.log(formatMessages(messages));
+
