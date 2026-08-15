@@ -852,7 +852,7 @@ padStart()
 a function
 Submit your solution when ready.
  */
-function formatMessages(messages) {
+/* function formatMessages(messages) {
   return messages.map((message, index) => {
     const cleaned = message.trim();
 
@@ -872,5 +872,57 @@ const messages = [
   'FASTAPI backend issue',
 ];
 
-console.log(formatMessages(messages));
+console.log(formatMessages(messages)); */
 
+//!Q.
+/* Question 7 — Medium
+You are building a settings cleaner for a web app.
+You receive user settings from an API:
+const settings = {
+  theme: " dark ",
+  language: " en ",
+  notifications: " true ",
+  autoSave: " false ",
+  aiModel: " gpt-4 "
+};
+​
+Write a function called cleanSettings(settings) that returns:
+{
+  theme: "dark",
+  language: "en",
+  notifications: true,
+  autoSave: false,
+  aiModel: "gpt-4"
+}
+​
+Requirements:
+Remove extra spaces from all string values
+Convert "true" into boolean true
+Convert "false" into boolean false
+Return a new cleaned object
+Try to use:
+Object.entries()
+map()
+Object.fromEntries()
+trim()
+a function
+Submit your solution when ready. */
+const settings = {
+  theme: ' dark ',
+  language: ' en ',
+  notifications: ' true ',
+  autoSave: ' false ',
+  aiModel: ' gpt-4 ',
+};
+
+function cleanSettings(settings) {
+  return Object.fromEntries(
+    Object.entries(settings).map(([key, value]) => {
+      value = value.trim();
+      if (value === 'true' || value === 'false') value = JSON.parse(value)
+
+      return [key, value];
+    }),
+  );
+}
+console.log(cleanSettings(settings));
