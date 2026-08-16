@@ -907,7 +907,7 @@ Object.fromEntries()
 trim()
 a function
 Submit your solution when ready. */
-const settings = {
+/* const settings = {
   theme: ' dark ',
   language: ' en ',
   notifications: ' true ',
@@ -925,4 +925,140 @@ function cleanSettings(settings) {
     }),
   );
 }
-console.log(cleanSettings(settings));
+console.log(cleanSettings(settings)); */
+
+//!
+
+/* Question 8 — Medium
+You are building an AI project access system.
+You receive users from an API:
+const users = [
+  {
+    id: 1,
+    name: "Rasel",
+    role: "student",
+    skills: ["JavaScript", "React", "Next.js"],
+    active: true
+  },
+  {
+    id: 2,
+    name: "Mina",
+    role: "student",
+    skills: ["HTML", "CSS"],
+    active: true
+  },
+  {
+    id: 3,
+    name: "Tanvir",
+    role: "mentor",
+    skills: ["JavaScript", "FastAPI", "LangChain"],
+    active: false
+  },
+  {
+    id: 4,
+    name: "Nadia",
+    role: "student",
+    skills: ["Python", "FastAPI", "RAG"],
+    active: true
+  }
+];
+​
+Write a function called checkProjectAccess(users, userName).
+The function should:
+Find the user by userName
+If user is not found, return:
+{
+  found: false,
+  message: "User not found"
+}
+​
+If user is found, check if they have at least one AI/web skill from this list:
+["React", "Next.js", "FastAPI", "LangChain", "RAG"]
+​
+User can access the project only if:
+active is true
+and they have at least one skill from the AI/web skill list
+Return an object like this:
+{
+  found: true,
+  name: "Rasel",
+  canAccess: true,
+  matchedSkills: ["React", "Next.js"],
+  message: "Rasel can access the AI project"
+}
+​
+Example:
+checkProjectAccess(users, "Rasel");
+​
+Expected output:
+{
+  found: true,
+  name: "Rasel",
+  canAccess: true,
+  matchedSkills: ["React", "Next.js"],
+  message: "Rasel can access the AI project"
+}
+​
+Try to use:
+find()
+filter()
+includes()
+destructuring
+conditional logic
+object return
+Submit your solution when ready. */
+//?soln.
+
+const users = [
+  {
+    id: 1,
+    name: 'Rasel',
+    role: 'student',
+    skills: ['JavaScript', 'React', 'Next.js'],
+    active: true,
+  },
+  {
+    id: 2,
+    name: 'Mina',
+    role: 'student',
+    skills: ['HTML', 'CSS'],
+    active: true,
+  },
+  {
+    id: 3,
+    name: 'Tanvir',
+    role: 'mentor',
+    skills: ['JavaScript', 'FastAPI', 'LangChain'],
+    active: false,
+  },
+  {
+    id: 4,
+    name: 'Nadia',
+    role: 'student',
+    skills: ['Python', 'FastAPI', 'RAG'],
+    active: true,
+  },
+];
+/* function checkProjectAccess(users, userName) {
+  const user = users.find(elem => elem.name === userName);
+  if (!user) {
+    return {
+      found: false,
+      message: 'User not found',
+    };
+  }
+  const { name, skills, active } = user;
+  const skill = ['React', 'Next.js', 'FastAPI', 'LangChain', 'RAG'];
+  const  canAccess=skill.some(elm => skills.includes(elm)) && active;
+  return {
+    found: true,
+    name,
+    canAccess,
+    matchedSkills: skill.filter(elem => skills.includes(elem)),
+    message: canAccess
+      ? `${name} can access the AI project`
+      : `${name} can't access the AI project`,
+  };
+} */
+
+//console.log(checkProjectAccess(users, 'Rasel'));
