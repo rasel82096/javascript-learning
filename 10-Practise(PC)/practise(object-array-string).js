@@ -516,6 +516,50 @@ For this one, try to figure out how to modify your sort():
    your logic here
 }) */
 
+//?soln
+/* const platformResults = [
+  {
+    platform: 'Udemy',
+    courses: [
+      { title: 'JavaScript Basics', students: 1200, score: 8.7 },
+      { title: 'React Mastery', students: 900, score: 9.2 },
+    ],
+  },
+  {
+    platform: 'Coursera',
+    courses: [
+      { title: 'Python for Beginners', students: 2000, score: 9.0 },
+      { title: 'Data Structures', students: 1500, score: 8.5 },
+    ],
+  },
+  {
+    platform: 'edX',
+    courses: [{ title: 'Machine Learning', students: 1800, score: 9.4 }],
+  },
+];
+
+function getTopCourses(platformResults, minimumScore, limit) {
+  return platformResults
+    .flatMap(({ platform, courses }) => {
+      return courses
+        .map(elem => {
+          return {
+            ...elem,
+            platform,
+          };
+        })
+        .filter(elem => elem.score >= minimumScore);
+    })
+    .sort((a, b) => {
+      if (a.score === b.score) {
+        return b.students - a.students;
+      } else return b.score - a.score;
+    })
+    .slice(0, limit);
+}
+
+console.log(getTopCourses(platformResults, 8.7, 4)); */
+
 //!Q10
 /* 
 const employees = [
@@ -1009,7 +1053,7 @@ object return
 Submit your solution when ready. */
 //?soln.
 
-const users = [
+/* const users = [
   {
     id: 1,
     name: 'Rasel',
@@ -1038,7 +1082,7 @@ const users = [
     skills: ['Python', 'FastAPI', 'RAG'],
     active: true,
   },
-];
+]; */
 /* function checkProjectAccess(users, userName) {
   const user = users.find(elem => elem.name === userName);
   if (!user) {
