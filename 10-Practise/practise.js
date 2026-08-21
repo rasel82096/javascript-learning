@@ -672,3 +672,104 @@ Use object destructuring, the spread operator, Object.values(), some(), and trim
     user,
   };
 } */
+
+//!Q
+/* You're building a shopping cart for an e-commerce app.
+
+You receive this cart:
+
+const cart = [
+  { id: 1, name: "Keyboard", price: 50, quantity: 2 },
+  { id: 2, name: "Mouse", price: 25, quantity: 1 },
+  { id: 3, name: "Monitor", price: 200, quantity: 1 }
+];
+
+Write a function getCartSummary(cart) that returns an object containing:
+
+items → an array of item names
+totalItems → total quantity of all products
+totalPrice → total cost (price × quantity)
+expensiveItems → products whose individual total (price × quantity) is greater than 100
+
+Expected result:
+
+{
+  items: ["Keyboard", "Mouse", "Monitor"],
+  totalItems: 4,
+  totalPrice: 325,
+  expensiveItems: ["Monitor"]
+}
+💡 Hint
+
+Try combining:
+
+map() → reduce() → filter()
+
+And use destructuring inside your callbacks. */
+
+/* const cart = [
+  { id: 1, name: 'Keyboard', price: 50, quantity: 2 },
+  { id: 2, name: 'Mouse', price: 25, quantity: 1 },
+  { id: 3, name: 'Monitor', price: 200, quantity: 1 },
+];
+
+function getCartSummary(cart) {
+  return cart.reduce(
+    (acc, curr) => {
+      let { name, price, quantity } = { ...curr };
+      acc.items.push(name);
+      acc.totalItems += quantity;
+      acc.totalPrice += price * quantity;
+      if (price * quantity > 100) acc.expensiveItems.push(name);
+      return acc;
+    },
+
+    {
+      items: [],
+      totalItems: 0,
+      totalPrice: 0,
+      expensiveItems: [],
+    },
+  );
+}
+
+console.log(getCartSummary(cart)); */
+
+//!q
+/* Grouping data by a property (Dashboards)
+ 
+
+const users = [
+  { name: 'Alice', country: 'USA' },
+  { name: 'Bob', country: 'India' },
+  { name: 'Charlie', country: 'USA' },
+  { name: 'Dev', country: 'India' },
+];
+
+o/p:
+
+{
+    USA:[
+        {name:"Alice", country:"USA",},
+        {name:"Charlie", country:"USA"}
+    ],
+    India:[
+        {name:"Bob", country:"India",},
+        {name:"Dev", country:"India"}
+    ]
+} */
+/* const users = [
+  { name: 'Alice', country: 'USA' },
+  { name: 'Bob', country: 'India' },
+  { name: 'Charlie', country: 'USA' },
+  { name: 'Dev', country: 'India' },
+];
+function group(users) {
+  return users.reduce((acc, curr) => {
+    acc[curr.country] = acc[curr.country] || [];
+    acc[curr.country].push(curr);
+    return acc;
+  }, {});
+}
+
+console.log(group(users)); */
