@@ -1106,3 +1106,157 @@ Submit your solution when ready. */
 } */
 
 //console.log(checkProjectAccess(users, 'Rasel'));
+
+//!Q
+/* You are building a chatbot conversation history cleaner for an AI app.
+You receive this data from an API:
+const chats = [
+  { id: 1, user: " Rasel ", message: "  hello ai  ", tags: ["js", "ai"] },
+  { id: 2, user: "Mina", message: "Explain React hooks", tags: ["react", "frontend"] },
+  { id: 3, user: "Tanvir ", message: "  ", tags: ["spam"] },
+  { id: 4, user: " Nadia", message: "How does RAG work?", tags: ["ai", "rag"] },
+  { id: 5, user: "Rasel", message: "next.js routing issue", tags: ["nextjs", "frontend"] }
+];
+​
+Write a function called cleanChatHistory(chats) that returns an array like this:
+[
+  {
+    id: 1,
+    user: "Rasel",
+    message: "Hello ai",
+    category: "AI"
+  },
+  {
+    id: 2,
+    user: "Mina",
+    message: "Explain React hooks",
+    category: "Frontend"
+  },
+  {
+    id: 4,
+    user: "Nadia",
+    message: "How does RAG work?",
+    category: "AI"
+  },
+  {
+    id: 5,
+    user: "Rasel",
+    message: "Next.js routing issue",
+    category: "Frontend"
+  }
+]
+​
+Requirements:
+Remove chats where message is empty after trim()
+Trim the user name
+Trim the message
+Capitalize the first character of the cleaned message
+Add a new category:
+if tags includes "ai" or "rag", category should be "AI"
+if tags includes "react", "nextjs", or "frontend", category should be "Frontend"
+otherwise category should be "General"
+Return only: id, user, message, and category
+Try to use:
+filter()
+map()
+trim()
+charAt()
+slice()
+includes()
+destructuring
+returning new objects
+Submit your solution when ready. */
+
+/* const chats = [
+  { id: 1, user: ' Rasel ', message: '  hello ai  ', tags: ['js', 'ai'] },
+  {
+    id: 2,
+    user: 'Mina',
+    message: 'Explain React hooks',
+    tags: ['react', 'frontend'],
+  },
+  { id: 3, user: 'Tanvir ', message: '  ', tags: ['spam'] },
+  { id: 4, user: ' Nadia', message: 'How does RAG work?', tags: ['ai', 'rag'] },
+  {
+    id: 5,
+    user: 'Rasel',
+    message: 'next.js routing issue',
+    tags: ['nextjs', 'frontend'],
+  },
+];
+
+function cleanChatHistory(chats) {
+  return chats
+    .filter(elem => elem.message.trim().length > 0)
+    .map(elem => {
+      let { id, user, message, tags } = elem;
+      message = message.trim();
+
+      let category = '';
+      if (tags.includes('ai') || tags.includes('rag')) {
+        category += 'AI';
+      } else if (
+        tags.includes('react') ||
+        tags.includes('nextjs') ||
+        tags.includes('nextjs')
+      ) {
+        category += 'Frontend';
+      } else {
+        category = 'General';
+      }
+      return {
+        id,
+        user: user.trim(),
+        message: message.charAt(0).toUpperCase() + message.slice(1),
+        category,
+      };
+    });
+}
+
+console.log(cleanChatHistory(chats)); */
+
+//!Q
+
+/* You’re building a user search feature. The API returns this data:
+
+const users = [
+  { id: 1, name: "  Rasel Ahmed  ", role: "developer" },
+  { id: 2, name: "Sara Khan", role: "designer" },
+  { id: 3, name: "  John Doe", role: "developer" }
+];
+
+A user searches for "rasel".
+
+Write a function searchUsers(users, query) that:
+
+removes extra spaces from each user's name
+searches case-insensitively
+returns only users whose name contains the search query
+returns the users as new objects without modifying the original users array
+
+Expected result for searchUsers(users, "rasel"):
+
+[
+  { id: 1, name: "Rasel Ahmed", role: "developer" }
+]
+
+Try it yourself and send me your code. */
+
+//?soln
+/* const users = [
+  { id: 1, name: '  Rasel Ahmed  ', role: 'developer' },
+  { id: 2, name: 'Sara Khan', role: 'designer' },
+  { id: 3, name: '  John Doe', role: 'developer' },
+];
+
+function searchUsers(users, query) {
+  return users.flatMap(elem => {
+    let { id, name, role } = { ...elem };
+    name = name.trim();
+    return name.toLowerCase().includes(query.trim().toLowerCase())
+      ? { id, name, role }
+      : [];
+  });
+}
+
+console.log(searchUsers(users, 'rasel')); */
