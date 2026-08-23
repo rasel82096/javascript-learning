@@ -773,3 +773,170 @@ function group(users) {
 }
 
 console.log(group(users)); */
+
+//!Q
+/* const user = {
+  id: 101,
+  name: "Rasel Ahmed",
+  email: "rasel@example.com",
+  role: "developer",
+  skills: ["JavaScript", "React", "Python"],
+};
+
+The frontend sends an update:
+
+const updates = {
+  name: "Rasel",
+  skills: ["Next.js", "FastAPI"],
+};
+
+Write a function:
+
+updateUser(user, updates)
+
+that returns a new user object with these rules:
+
+Existing properties should remain if they aren't in updates.
+Properties in updates should overwrite the old values.
+The original user object must not be modified.
+Return only the user's id, name, email, role, and skills.
+Use object destructuring + spread operator.
+
+Expected result:
+
+{
+  id: 101,
+  name: "Rasel",
+  email: "rasel@example.com",
+  role: "developer",
+  skills: ["Next.js", "FastAPI"]
+}
+
+Bonus: What happens if updates contains a property that isn't part of the user profile? Try to make your function ignore it. */
+//?soln
+/* const user = {
+  id: 101,
+  name: 'Rasel Ahmed',
+  email: 'rasel@example.com',
+  role: 'developer',
+  skills: ['JavaScript', 'React', 'Python'],
+};
+
+function updateUser(user, updates) {
+  const { id, name, email, role, skills } = { ...user };
+
+  return {
+    id,
+    name,
+    email,
+    role,
+    skills,
+    ...updates,
+  };
+}
+const updates = {
+  name: 'Rasel',
+  skills: ['Next.js', 'FastAPI'],
+};
+
+console.log(updateUser(user, updates)); */
+
+//!Q
+
+/* const conversations = [
+  {
+    id: 1,
+    title: "Learn JavaScript",
+    tags: ["javascript", "coding"],
+    messages: 12,
+  },
+  {
+    id: 2,
+    title: "Build RAG App",
+    tags: ["ai", "rag", "python"],
+    messages: 25,
+  },
+  {
+    id: 3,
+    title: "React Dashboard",
+    tags: ["react", "javascript"],
+    messages: 8,
+  },
+  {
+    id: 4,
+    title: "FastAPI Backend",
+    tags: ["python", "fastapi"],
+    messages: 18,
+  },
+];
+
+Write a function:
+
+searchConversations(conversations, keyword)
+
+It should return conversations where either:
+
+the title contains the keyword, OR
+one of the tags contains the keyword.
+
+The search must be case-insensitive.
+
+For example:
+
+searchConversations(conversations, "JAVASCRIPT")
+
+should return the conversations with IDs:
+
+[1, 3]
+Requirements
+Use filter()
+Use includes()
+Handle the nested tags array
+Don't modify the original data
+The keyword should work regardless of capitalization
+
+Bonus: Make " python " work the same as "python".
+
+Your turn.  */
+
+//?soln
+/* const conversations = [
+  {
+    id: 1,
+    title: 'Learn JavaScript',
+    tags: ['javascript', 'coding'],
+    messages: 12,
+  },
+  {
+    id: 2,
+    title: 'Build RAG App',
+    tags: ['ai', 'rag', 'python'],
+    messages: 25,
+  },
+  {
+    id: 3,
+    title: 'React Dashboard',
+    tags: ['react', 'javascript'],
+    messages: 8,
+  },
+  {
+    id: 4,
+    title: 'FastAPI Backend',
+    tags: ['python', 'fastapi'],
+    messages: 18,
+  },
+];
+function searchConversations(conversations, keyword) {
+  const normalizedKeyword = keyword.trim().toLowerCase();
+
+  return conversations
+    .filter(({ title, tags }) => {
+      return (
+        title.toLowerCase().includes(normalizedKeyword) ||
+        tags.some(tag => tag.toLowerCase().includes(normalizedKeyword))
+      );
+    })
+    .map(({ id }) => id);
+}
+
+console.log(searchConversations(conversations, ' JAVASCRIPT ')); */
