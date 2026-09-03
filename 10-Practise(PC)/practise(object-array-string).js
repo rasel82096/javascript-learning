@@ -1260,3 +1260,243 @@ function searchUsers(users, query) {
 }
 
 console.log(searchUsers(users, 'rasel')); */
+
+//!Q
+
+/* Question 2 — Medium+
+
+You’re building an AI document analytics dashboard. Documents are grouped by project:
+
+const projects = [
+  {
+    project: "RAG Chatbot",
+    documents: [
+      { name: "  Architecture Guide ", pages: 15 },
+      { name: "Retrieval Notes", pages: 8 }
+    ]
+  },
+  {
+    project: "AI Assistant",
+    documents: [
+      { name: "Prompt Engineering", pages: 12 },
+      { name: "  API Reference", pages: 20 }
+    ]
+  },
+  {
+    project: "Web Dashboard",
+    documents: [
+      { name: "React Guide", pages: 10 }
+    ]
+  }
+];
+
+Write a function:
+
+getLargeDocuments(projects, minimumPages)
+
+It should:
+
+Combine all nested documents into one array
+Add the corresponding project to each document
+Clean whitespace from each document name
+Keep only documents whose pages are greater than or equal to minimumPages
+Sort the documents from highest pages to lowest pages
+Return the cleaned documents
+
+For:
+
+getLargeDocuments(projects, 12)
+
+Expected result:
+
+[
+  {
+    name: "API Reference",
+    pages: 20,
+    project: "AI Assistant"
+  },
+  {
+    name: "Architecture Guide",
+    pages: 15,
+    project: "RAG Chatbot"
+  },
+  {
+    name: "Prompt Engineering",
+    pages: 12,
+    project: "AI Assistant"
+  }
+]
+
+Try to use: destructuring, spread operator, flatMap(), map(), filter(), sort(), and trim(). */
+
+//?soln:
+
+/* const projects = [
+  {
+    project: 'RAG Chatbot',
+    documents: [
+      { name: '  Architecture Guide ', pages: 15 },
+      { name: 'Retrieval Notes', pages: 8 },
+    ],
+  },
+  {
+    project: 'AI Assistant',
+    documents: [
+      { name: 'Prompt Engineering', pages: 12 },
+      { name: '  API Reference', pages: 20 },
+    ],
+  },
+  {
+    project: 'Web Dashboard',
+    documents: [{ name: 'React Guide', pages: 10 }],
+  },
+];
+function getLargeDocuments(projects, minimumPages) {
+  return projects
+    .flatMap(({ project, documents }) => {
+      return documents.map(elem => {
+        return {
+          ...elem,
+          project,
+          name: elem.name.trim(),
+        };
+      });
+    })
+    .filter(elem => elem.pages >= minimumPages)
+    .sort((a, b) => b.pages - a.pages);
+}
+
+console.log(getLargeDocuments(projects, 12)); */
+
+//!Q
+/* You’re building an AI API usage dashboard. The backend gives you usage data like this:
+
+const usage = {
+  rasel: { requests: 120, tokens: 5000 },
+  mina: { requests: 80, tokens: 3200 },
+  tanvir: { requests: 150, tokens: 6100 },
+  nadia: { requests: 50, tokens: 2100 }
+};
+
+Write a function:
+
+getUsageSummary(usage)
+
+It should return:
+
+{
+  totalRequests: 400,
+  totalTokens: 16400,
+  highestUser: "tanvir"
+}
+Requirements
+Calculate the total number of requests.
+Calculate the total tokens.
+Find the user who consumed the most tokens.
+Return a new object containing those three properties.
+Do not modify the original usage object.
+Try to use
+Object.entries()
+reduce()
+destructuring
+object return
+
+Challenge: Try to solve everything with reduce() rather than using separate loops.
+
+Send me your code when you're done, and I'll review it honestly. */
+
+//!soln:
+
+/*const usage = {
+  rasel: { requests: 120, tokens: 5000 },
+  mina: { requests: 80, tokens: 3200 },
+  tanvir: { requests: 150, tokens: 6100 },
+  nadia: { requests: 50, tokens: 2100 },
+};
+
+function getUsageSummary(usage) {
+  const { check, ...usa } = Object.entries(usage).reduce(
+    (acc, [key, value]) => {
+      acc['totalTokens'] += value.tokens;
+      acc['totalRequests'] += value.requests;
+
+      if (value.tokens > acc.check) {
+        acc['highestUser'] = key;
+        acc.check = value.tokens;
+      }
+      return acc;
+    },
+    {
+      totalRequests: 0,
+      totalTokens: 0,
+      highestUser: '',
+      check: 0,
+    },
+  );
+
+  return usa;
+}
+console.log(getUsageSummary(usage));*/
+
+/*You’re building an AI model usage report. The backend sends usage grouped by model:
+
+const modelUsage = {
+  "gpt-4": { users: 12, tokens: 4800 },
+  "gpt-4o": { users: 20, tokens: 7500 },
+  "claude": { users: 15, tokens: 5200 },
+  "gemini": { users: 8, tokens: 2100 }
+};
+
+Write a function:
+
+getModelReport(modelUsage)
+
+It should return:
+
+{
+  totalUsers: 55,
+  totalTokens: 19600,
+  mostUsedModel: "gpt-4o",
+  models: ["gpt-4", "gpt-4o", "claude", "gemini"]
+}
+Requirements
+Calculate totalUsers
+Calculate totalTokens
+Find the model with the highest number of tokens
+Return all model names in the models array
+Do not modify the original object
+Try to use one reduce()
+Use Object.entries()
+Use destructuring
+
+Important: Don't use Object.values() just because it's available. Think about why Object.entries() is more useful here. */
+const modelUsage = {
+  'gpt-4': { users: 12, tokens: 4800 },
+  'gpt-4o': { users: 20, tokens: 7500 },
+  claude: { users: 15, tokens: 5200 },
+  gemini: { users: 8, tokens: 2100 },
+};
+
+function getModelReport(modelUsage) {
+  const { check, ...usa } = Object.entries(modelUsage).reduce(
+    (acc, [key, value]) => {
+      acc.totalUsers += value.users;
+      acc.totalTokens += value.tokens;
+      acc.models.push(key);
+      if (value.tokens > acc.check) {
+        acc.mostUsedModel = key;
+        acc.check = value.tokens;
+      }
+      return acc;
+    },
+    {
+      totalUsers: 0,
+      totalTokens: 0,
+      mostUsedModel: '',
+      models: [],
+      check: 0,
+    },
+  );
+  return usa;
+}
+console.log(getModelReport(modelUsage));
