@@ -1287,9 +1287,6 @@ const projects = [
     documents: [
       { name: "React Guide", pages: 10 }
     ]
-  }
-];
-
 Write a function:
 
 getLargeDocuments(projects, minimumPages)
@@ -1500,3 +1497,101 @@ function getModelReport(modelUsage) {
   return usa;
 }
 console.log(getModelReport(modelUsage));
+/*Next Question — Chat Message Transformation
+
+You’re working on an AI chat app. The backend sends messages like this:
+
+const messages = [
+  {
+    id: 1,
+    username: " rasel ",
+    message: "Hello AI!",
+    tags: ["general", " ai "]
+  },
+  {
+    id: 2,
+    username: "mina",
+    message: "  Explain RAG to me  ",
+    tags: ["rag", " ai"]
+  },
+  {
+    id: 3,
+    username: " tanvir",
+    message: "Can you explain embeddings?",
+    tags: [" AI", "embeddings"]
+  }
+];
+
+function prepareMessages(messages) {
+  // your code
+}
+
+It should return:
+
+[
+  {
+    id: 1,
+    username: "rasel",
+    message: "Hello AI!",
+    tags: ["general", "ai"]
+  },
+  {
+    id: 2,
+    username: "mina",
+    message: "Explain RAG to me",
+    tags: ["rag", "ai"]
+  },
+  {
+    id: 3,
+    username: "tanvir",
+    message: "Can you explain embeddings?",
+    tags: ["AI", "embeddings"]
+  }
+]
+Requirements
+
+Use:
+
+map()
+trim()
+spread operator
+destructuring
+Transform the tags array without modifying the original data. */
+//?soln:
+const messages = [
+  {
+    id: 1,
+    username: ' rasel ',
+    message: 'Hello AI!',
+    tags: ['general', ' ai '],
+  },
+  {
+    id: 2,
+    username: 'mina',
+    message: '  Explain RAG to me  ',
+    tags: ['rag', ' ai'],
+  },
+  {
+    id: 3,
+    username: ' tanvir',
+    message: 'Can you explain embeddings?',
+    tags: [' AI', 'embeddings'],
+  },
+];
+function prepareMessages(messages) {
+  return messages.map(elm => {
+    let { id, username, message, tags } = elm;
+    username = username.trim();
+    message = message.trim();
+    tags = tags.map(elm => elm.trim());
+    return {
+      id,
+      username,
+      message,
+      tags,
+    };
+  });
+}
+console.log(prepareMessages(messages));
+
+console.log(messages);
