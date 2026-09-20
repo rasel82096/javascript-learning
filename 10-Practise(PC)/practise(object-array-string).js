@@ -1373,7 +1373,7 @@ const usage = {
   mina: { requests: 80, tokens: 3200 },
   tanvir: { requests: 150, tokens: 6100 },
   nadia: { requests: 50, tokens: 2100 }
-};
+};getCompletedCourseStats(users)
 
 Write a function:
 
@@ -1467,7 +1467,7 @@ Use Object.entries()
 Use destructuring
 
 Important: Don't use Object.values() just because it's available. Think about why Object.entries() is more useful here. */
-const modelUsage = {
+/*const modelUsage = {
   'gpt-4': { users: 12, tokens: 4800 },
   'gpt-4o': { users: 20, tokens: 7500 },
   claude: { users: 15, tokens: 5200 },
@@ -1496,7 +1496,7 @@ function getModelReport(modelUsage) {
   );
   return usa;
 }
-console.log(getModelReport(modelUsage));
+console.log(getModelReport(modelUsage));*/
 /*Next Question — Chat Message Transformation
 
 You’re working on an AI chat app. The backend sends messages like this:
@@ -1558,7 +1558,7 @@ spread operator
 destructuring
 Transform the tags array without modifying the original data. */
 //?soln:
-const messages = [
+/*const messages = [
   {
     id: 1,
     username: ' rasel ',
@@ -1594,4 +1594,141 @@ function prepareMessages(messages) {
 }
 console.log(prepareMessages(messages));
 
-console.log(messages);
+console.log(messages);*/
+
+/*Question 1 — AI Course Dashboard
+
+You’re building a dashboard that shows which courses users are actively learning.
+
+const users = [
+  {
+    name: "Rasel",
+    courses: [
+      { title: "JavaScript", completed: true, hours: 25 },
+      { title: "React", completed: false, hours: 18 },
+      { title: "FastAPI", completed: true, hours: 12 }
+    ]
+  },
+  {
+    name: "Mina",
+    courses: [
+      { title: "JavaScript", completed: true, hours: 30 },
+      { title: "React", completed: true, hours: 22 }
+    ]
+  },
+  {
+    name: "Tanvir",
+    courses: [
+      { title: "Python", completed: false, hours: 15 },
+      { title: "LangChain", completed: true, hours: 20 }
+    ]
+  }
+];
+
+Write:
+
+function getCompletedCourseStats(users) {
+  // your code
+}
+
+Expected result:
+
+{
+  totalCompleted: 5,
+  totalHours: 109,
+  courses: [
+    "JavaScript",
+    "FastAPI",
+    "React",
+    "LangChain"
+  ]
+}
+
+Requirements:
+
+Use filter(), map(), and reduce()
+Use object destructuring
+courses should contain unique completed course names
+Don't mutate users
+You can use another array method if you need it
+Think carefully about the nested courses arrays */
+/*const users = [
+  {
+    name: 'Rasel',
+    courses: [
+      { title: 'JavaScript', completed: true, hours: 25 },
+      { title: 'React', completed: false, hours: 18 },
+      { title: 'FastAPI', completed: true, hours: 12 },
+    ],
+  },
+  {
+    name: 'Mina',
+    courses: [
+      { title: 'JavaScript', completed: true, hours: 30 },
+      { title: 'React', completed: true, hours: 22 },
+    ],
+  },
+  {
+    name: 'Tanvir',
+    courses: [
+      { title: 'Python', completed: false, hours: 15 },
+      { title: 'LangChain', completed: true, hours: 20 },
+    ],
+  },
+];
+
+function getCompletedCourseStats(users) {
+  const obj = users.reduce(
+    (acc, curr) => {
+      let { courses } = curr;
+      courses.filter(elem => {
+        if (elem.completed) {
+          acc['totalCompleted']++;
+          acc['totalHours'] += elem.hours;
+          acc['courses'].push(elem.title);
+        }
+      });
+      return acc;
+    },
+    {
+      totalCompleted: 0,
+      totalHours: 0,
+      courses: [],
+    },
+  );
+
+  let { totalCompleted, totalHours, courses } = obj;
+  courses = [...new Set(courses)];
+  return {
+    totalCompleted,
+    totalHours,
+    courses,
+  };
+}
+
+console.log(getCompletedCourseStats(users));*/
+//!clean approach
+/*function getCompletedCourseStats(users) {
+  const completedCourses = users.flatMap(({ courses }) =>
+    courses.filter(({ completed }) => completed)
+  );
+
+  const totalCompleted = completedCourses.length;
+
+  const totalHours = completedCourses.reduce(
+    (total, { hours }) => total + hours,
+    0
+  );
+
+  const courses = [
+    ...new Set(
+      completedCourses.map(({ title }) => title)
+    )
+  ];
+
+  return {
+    totalCompleted,
+    totalHours,
+    courses
+  };
+} */
