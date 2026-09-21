@@ -1732,3 +1732,63 @@ console.log(getCompletedCourseStats(users));*/
     courses
   };
 } */
+
+/*Question 2 — AI API Request Analyzer
+
+Your backend records API requests like this:
+
+const logs = [
+  { user: "rasel", endpoint: "/chat", tokens: 1200, status: 200 },
+  { user: "mina", endpoint: "/chat", tokens: 800, status: 200 },
+  { user: "rasel", endpoint: "/embedding", tokens: 400, status: 200 },
+  { user: "tanvir", endpoint: "/chat", tokens: 1500, status: 500 },
+  { user: "mina", endpoint: "/embedding", tokens: 600, status: 200 }
+];
+
+Write:
+
+function analyzeLogs(logs) {
+  // your code
+}
+
+Expected result:
+
+{
+  successfulRequests: 4,
+  totalTokens: 3000,
+  users: ["rasel", "mina"]
+}
+
+Requirements:
+
+Use filter(), map(), and reduce()
+Use object destructuring
+successfulRequests → count only requests with status 200
+totalTokens → tokens from successful requests only
+users → unique users who made successful requests
+Don't mutate the original array
+
+Important: Don't just mechanically chain filter → map → reduce. Think about what data each step should produce. */
+const logs = [
+  { user: 'rasel', endpoint: '/chat', tokens: 1200, status: 200 },
+  { user: 'mina', endpoint: '/chat', tokens: 800, status: 200 },
+  { user: 'rasel', endpoint: '/embedding', tokens: 400, status: 200 },
+  { user: 'tanvir', endpoint: '/chat', tokens: 1500, status: 500 },
+  { user: 'mina', endpoint: '/embedding', tokens: 600, status: 200 },
+];
+
+function analyzeLogs(logs) {
+  const successFul = logs.filter(({ status }) => status === 200);
+  const successfulRequests = successFul.length;
+  const totalTokens = successFul.reduce((acc, { tokens }) => {
+    acc += tokens;
+    return acc;
+  }, 0);
+  let users = [...new Set(successFul.map(({ user }) => user))];
+  return {
+    successfulRequests,
+    totalTokens,
+    users,
+  };
+}
+console.log(analyzeLogs(logs));
